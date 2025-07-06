@@ -1,0 +1,34 @@
+<nav class="navbar" [class.scrolled]="isNavbarScrolled()">
+  <div class="navbar-container">
+    
+    <!-- Logo -->
+    <div class="navbar-logo" (click)="onLogoClick()">
+      <img src="assets/logo.png" alt="Logo" class="logo-img">
+      <span class="logo-text">Mi App</span>
+    </div>
+
+    <!-- Navigation Links -->
+    <ul class="navbar-menu" [class.active]="isMobileMenuActive()">
+      <li class="navbar-item">
+        <a href="#home" class="navbar-link" (click)="onMenuLinkClick()">Inicio</a>
+      </li>
+      <li class="navbar-item">
+        <a href="#about" class="navbar-link" (click)="onMenuLinkClick()">Acerca de</a>
+      </li>
+      <li class="navbar-item">
+        <a href="#services" class="navbar-link" (click)="onMenuLinkClick()">Servicios</a>
+      </li>
+      <li class="navbar-item">
+        <a href="#contact" class="navbar-link" (click)="onMenuLinkClick()">Contacto</a>
+      </li>
+    </ul>
+
+    <!-- Mobile Menu Button -->
+    <div class="navbar-toggle" [class.active]="isMobileMenuActive()" (click)="onMenuClick()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+
+  </div>
+</nav>

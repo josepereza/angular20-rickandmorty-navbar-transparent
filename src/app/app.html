@@ -1,0 +1,102 @@
+<app-navbar></app-navbar>
+<div class="app-container">
+  <header class="header">
+      <h1 class="title">🛸 Rick & Morty</h1>
+      <p class="subtitle">Explora el multiverso de personajes</p>
+  </header>
+
+  <div class="search-container">
+      <input 
+          type="text" 
+          class="search-input" 
+          placeholder="🔍 Buscar personajes por nombre..."
+          [value]="searchTerm()"
+          (input)="onSearchInput($event)"
+      >
+  </div>
+@if (loading()){
+
+<div  class="loading">
+      Cargando personajes del multiverso...
+  </div>
+}
+  @if(error()){
+
+<div class="error-message">
+      <strong>¡Oops! Algo salió mal</strong><br>
+      {{ error() }}
+  </div>
+  }
+
+  
+@if ( !loading() && !error()){
+ <div >
+    @if(filteredCharacters().length === 0 && searchTerm()){
+
+        <div  class="no-results">
+          <div class="no-results-icon">🤷‍♂️</div>
+          <div class="no-results-text">No se encontraron personajes</div>
+          <div class="no-results-subtitle">Intenta con otro nombre</div>
+      </div>
+    }
+      
+     @if(filteredCharacters().length > 0){
+
+         <div class="characters-grid" >
+        @for (character of filteredCharacters(); track character.id) {
+
+ <div  class="character-card">
+              <img 
+                  [src]="character.image" 
+                  [alt]="character.name"
+                  class="character-image"
+                  loading="lazy"
+              >
+              <div class="character-info">
+                  <h3 class="character-name">{{ character.name }}</h3>
+                  
+                  <div class="character-detail">
+                      <span class="detail-label">Estado:</span>
+                      <span 
+                          class="status-badge"
+                          [ngClass]="{
+                              'status-alive': character.status === 'Alive',
+                              'status-dead': character.status === 'Dead',
+                              'status-unknown': character.status === 'unknown'
+                          }"
+                      >
+                          {{ getStatusText(character.status) }}
+                      </span>
+                  </div>
+                  
+                  <div class="character-detail">
+                      <span class="detail-label">Especie:</span>
+                      <span class="detail-value">{{ character.species }}</span>
+                  </div>
+                  
+                  <div class="character-detail">
+                      <span class="detail-label">Género:</span>
+                      <span class="detail-value">{{ getGenderText(character.gender) }}</span>
+                  </div>
+                  
+                  <div class="character-detail">
+                      <span class="detail-label">Origen:</span>
+                      <span class="detail-value">{{ character.origin.name }}</span>
+                  </div>
+                  
+                  <div class="character-detail">
+                      <span class="detail-label">Ubicación:</span>
+                      <span class="detail-value">{{ character.location.name }}</span>
+                  </div>
+              </div>
+          </div>
+        }
+         
+      </div>
+     }
+     
+  </div>
+
+}
+ 
+</div>
